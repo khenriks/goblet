@@ -107,6 +107,11 @@ if not app.debug and app.config['ADMINS']:
     mail_handler = SMTPHandler('127.0.0.1', app.config['SENDER'], app.config['ADMINS'], "Goblet error")
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
+if app.debug:
+    import logging
+    out_handler = logging.StreamHandler()
+    out_handler.setLevel(logging.ERROR)
+    app.logger.addHandler(out_handler)
 
 if __name__ == '__main__':
     os.chdir('/')
