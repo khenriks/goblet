@@ -16,6 +16,9 @@ import goblet.views as v
 import goblet.json_views as j
 from goblet.encoding import decode
 
+def is_true_str(str_):
+    return str(str_).lower() in ["true", "t", "yes", "y", "1"]
+
 class Defaults:
     REPO_ROOT      = git_checkout and os.path.dirname(git_checkout) or os.getcwd()
     MAX_SEARCH_DEPTH = 2
@@ -25,7 +28,7 @@ class Defaults:
     ADMINS         = []
     SENDER         = 'webmaster@localhost'
     CLONE_URLS_BASE = {}
-    DEBUG          = os.environ.get('GOBLET_DEBUG', 'False').lower() == 'true'
+    DEBUG          = is_true_str(os.getenv('GOBLET_DEBUG'))
     THEME          = 'default'
     ABOUT = """<h2>About git &amp; goblet</h2>
 <p>
