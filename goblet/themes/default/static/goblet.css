@@ -219,7 +219,7 @@ See the LICENSE file for licensing details
     color: rgb(51, 51, 51);
 }
 .goblet .show_long {
-    color: rgb(154, 153, 148); 
+    color: rgb(154, 153, 148);
 }
 .goblet .show_long:hover {
     text-decoration: underline;
@@ -253,12 +253,20 @@ See the LICENSE file for licensing details
 .goblet .deletion .diffcontent, .goblet .statbar {
     background-color: rgb(255, 221, 221);
 }
+.goblet .deletion .diffcontent del {
+    background-color: rgb(238, 153, 153);
+    text-decoration: none;
+}
 .goblet .statbar {
     width: 100px;
     line-height: 8px;
 }
 .goblet .addition .diffcontent, .goblet .statbar div {
     background-color: rgb(221, 255, 221);
+}
+.goblet .addition .diffcontent ins {
+    background-color: rgb(153, 238, 153);
+    text-decoration: none;
 }
 .goblet .blobdiff .lineno {
     background-color: rgb(237, 235, 227);

@@ -34,7 +34,7 @@ class Defaults:
 <p>
 <a href="http://git-scm.com">Git</a> is a free and open source distributed
 version control system designed to handle everything from small to very large
-projects with speed and efficiency. 
+projects with speed and efficiency.
 </p>
 <p>
 Goblet is a fast web-based git repository browser using libgit2.

@@ -88,10 +88,10 @@ See the LICENSE file for licensing details
 <tr class="context"><td class="lineno"><a href="{{ old_file_link }}#l-{{ old }}">{{ old }}</a></td><td class="lineno"><a href="{{ file_link }}#l-{{ new }}">{{ new }}</a></td><td class="diffcontent"><pre>{{ decode(line) }}</pre></td></tr>
 {% set old = old + 1 %}{% set new = new +1 %}
 {% elif status == '-' %}
-<tr class="deletion"><td class="lineno"><a href="{{ old_file_link }}#l-{{ old }}">{{ old }}</a></td><td class="lineno">&nbsp;</td><td class="diffcontent"><pre>{{ decode(line) }}</pre></td></tr>
+<tr class="deletion"><td class="lineno"><a href="{{ old_file_link }}#l-{{ old }}">{{ old }}</a></td><td class="lineno">&nbsp;</td><td class="diffcontent"><pre>{% autoescape false %}{{ decode(line)|escape|replace("##DEL##", "<del>")|replace("##/DEL##", "</del>") }}{% endautoescape %}</pre></td></tr>
 {% set old = old + 1 %}
 {% elif status == '+' %}
-<tr class="addition"><td class="lineno">&nbsp;</td><td class="lineno"><a href="{{ file_link }}#l-{{ new }}">{{ new }}</a></td><td class="diffcontent"><pre>{{ decode(line) }}</pre></td></tr>
+<tr class="addition"><td class="lineno">&nbsp;</td><td class="lineno"><a href="{{ file_link }}#l-{{ new }}">{{ new }}</a></td><td class="diffcontent"><pre>{% autoescape false %}{{ decode(line)|escape|replace("##INS##", "<ins>")|replace("##/INS##", "</ins>") }}{% endautoescape %}</pre></td></tr>
 {% set new = new + 1 %}
 {% endif %}
 {% endfor %}

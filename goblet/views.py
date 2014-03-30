@@ -15,6 +15,7 @@ import chardet
 import mimetypes
 from collections import namedtuple
 from whelk import shell
+import difflib
 
 class NotFound(Exception):
     pass
@@ -372,15 +373,39 @@ class CommitView(RefView):
             diff = ref.tree.diff_to_tree(swap=True)
         else:
             diff = ref.parents[0].tree.diff_to_tree(ref.tree)
+        diff = list(diff)
         for file in diff:
-            s = stat[file.new_file_path] = {'-': 0, '+': 0}
+            s = stat[file.new_file_path] = {'-': file.deletions,
+                                            '+': file.additions}
+            s['%'] = int(100.0 * s['+'] / (s['-']+s['+']))
             for hunk in file.hunks:
-                hs = [x[0] for x in hunk.lines]
-                s['-'] += hs.count('-')
-                s['+'] += hs.count('+')
-                s['%'] = int(100.0 * s['+'] / (s['-']+s['+']))
+                self.mark_hunk_word_diff(hunk)
         stat[None] = {'-': sum([x['-'] for x in stat.values()]), '+': sum([x['+'] for x in stat.values()])}
         return {'commit': ref, 'diff': diff, 'stat': stat}
+
+    def mark_hunk_word_diff(self, hunk):
+        import collections
+        changes = collections.defaultdict(lambda : [])
+        for n in range(len(hunk.lines)-1):
+            (s1,l1),(s2,l2) = hunk.lines[n:n+2]
+            if s1 == '-' and s2 == '+':
+                s = difflib.SequenceMatcher(a=l1, b=l2)
+                opcodes = s.get_opcodes()
+                # The 0.5 here is fuzzy. There may be a better threshhold
+                if s.ratio() < 0.5:
+                    continue
+                for tag, i1, i2, j1, j2 in opcodes:
+                    if tag == 'delete' or tag == 'replace':
+                        changes[n].extend([(i1, "##DEL##"), (i2, "##/DEL##")])
+                    if tag == 'insert' or tag == 'replace':
+                        changes[n+1].extend([(j1, "##INS##"), (j2, "##/INS##")])
+        for n, clist in changes.items():
+            # We somehow need to insert text without messing up indices, so
+            # do it in reverse index order
+            newline = hunk.lines[n][1]
+            for i, text in sorted(clist, reverse=True):
+                newline = u"{0}{1}{2}".format(newline[:i], text, newline[i:])
+            hunk.lines[n] = (hunk.lines[n][0], newline)
 
 class PatchView(RefView):
     def handle_request(self, repo, ref=None):
