@@ -25,7 +25,7 @@ def filter(name_or_func):
 @filter('gravatar')
 @memoize
 def gravatar(email, size=21):
-    return 'http://www.gravatar.com/avatar/%s?s=%d&d=mm' % (hashlib.md5(email).hexdigest(), size)
+    return '//www.gravatar.com/avatar/%s?s=%d&d=mm' % (hashlib.md5(email).hexdigest(), size)
 
 @filter
 def humantime(ctime):
