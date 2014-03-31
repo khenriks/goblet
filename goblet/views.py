@@ -446,11 +446,11 @@ def history_link(repo, ref, path, file=None):
 def file_icon(file):
     mode = getattr(file, 'filemode', stat.S_IFREG)
     if stat.S_ISDIR(mode):
-        return "/static/folder_icon.png"
+        return url_for('static', filename='folder_icon.png')
     if stat.S_IXUSR & mode:
-        return "/static/script_icon.png"
+        return url_for('static', filename='script_icon.png')
     if stat.S_ISLNK(mode):
-        return "/static/link_icon.png"
+        return url_for('static', filename='link_icon.png')
     if stat.S_ISGITLNK(mode):
-        return "/static/repo_icon.png"
-    return "/static/file_icon.png"
+        return url_for('static', filename='repo_icon.png')
+    return url_for('static', filename='file_icon.png')

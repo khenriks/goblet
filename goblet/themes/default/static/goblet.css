@@ -7,7 +7,7 @@ See the LICENSE file for licensing details
 .goblet {
     background-color: #fcfcfa;
     color: rgb(78, 68, 60);
-    background: url("/static/body.jpg") repeat scroll 0% 0% rgb(240, 239, 231);
+    background: url("body.jpg") repeat scroll 0% 0% rgb(240, 239, 231);
     font-family: "Lato","Helvetica Neue",sans-serif;
     font-size: 14px;
     padding: 5px;
@@ -24,7 +24,7 @@ See the LICENSE file for licensing details
     top: 10px;
     width: 262px;
     padding-left: 32px;
-    background: url("/static/search.png") no-repeat scroll 10px 50% rgb(252, 252, 250);
+    background: url("search.png") no-repeat scroll 10px 50% rgb(252, 252, 250);
     border: 1px solid rgb(206, 204, 197);
     border-radius: 20px 20px 20px 20px;
     box-shadow: 0px 1px 4px rgb(221, 221, 221) inset;
