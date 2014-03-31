@@ -377,7 +377,10 @@ class CommitView(RefView):
         for file in diff:
             s = stat[file.new_file_path] = {'-': file.deletions,
                                             '+': file.additions}
-            s['%'] = int(100.0 * s['+'] / (s['-']+s['+']))
+            if s['-'] + s['+'] == 0:
+                s['%'] = 0
+            else:
+                s['%'] = int(100.0 * s['+'] / (s['-']+s['+']))
             for hunk in file.hunks:
                 self.mark_hunk_word_diff(hunk)
         stat[None] = {'-': sum([x['-'] for x in stat.values()]), '+': sum([x['+'] for x in stat.values()])}
