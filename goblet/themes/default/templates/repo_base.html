@@ -46,7 +46,7 @@ init_clone_urls();
 {% block repo_content %}
 {% endblock %}
 <script type="text/javascript">
-$(".chzn-select").chosen();
+$(".chzn-select").chosen({search_contains: true});
 $("#branches").change(switch_branch);
 var x1 = $("#branches_chzn").offset().top;
 var x2 = $(".tabnav-tabs a").first().offset().top;
