@@ -363,10 +363,12 @@ class SnapshotView(RefView):
                     raise RuntimeError(ret.stderr)
         return send_file(filename_compressed, attachment_filename=os.path.basename(filename_compressed), as_attachment=True, cache_timeout=86400)
 
-class CommitView(RefView):
+class CommitView(RefView,TreeView):
     template_name = 'commit.html'
 
     def handle_request(self, repo, ref=None):
+        if 'q' in request.args:
+            return self.git_grep(repo, ref, '')
         ref = self.lookup_ref(repo, ref)
         stat = {}
         if not ref.parents:
