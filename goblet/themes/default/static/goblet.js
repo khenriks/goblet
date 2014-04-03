@@ -12,6 +12,9 @@ function toggle_longlog() {
 }
 function switch_branch() {
     var branch = $(this).attr('value');
+    if(action == 'ref_commits') {
+        action = 'commits';
+    }
     if($.inArray(action, ['commits', 'commit'])>=0) {
         url = urlprefix + '/' + repo + '/' + action + '/' + branch + '/'
     }
