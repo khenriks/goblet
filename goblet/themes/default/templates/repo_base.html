@@ -24,6 +24,8 @@ init_clone_urls();
   <ul class="tabnav-tabs">
     {% if commit %}
     <li><a class="tabnav-tab {% if tree %}selected{% endif %}" href="{{ url_for('tree', repo=repo.name, path=commit.hex) }}">Files</a></li>
+    {% elif ref %}
+    <li><a class="tabnav-tab {% if tree %}selected{% endif %}" href="{{ url_for('tree', repo=repo.name, path=ref) }}">Files</a></li>
     {% else %}
     <li><a class="tabnav-tab {% if tree %}selected{% endif %}" href="{{ url_for('repo', repo=repo.name) }}">Files</a></li>
     {% endif %}
