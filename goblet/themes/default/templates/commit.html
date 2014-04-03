@@ -22,6 +22,10 @@ See the LICENSE file for licensing details
 {% if commit.parents %}
 <table class="parents">
 <tr>
+<td>Commit&nbsp;hash</td>
+<td style="font-weight: bold">{{ commit.hex }}</td>
+</tr>
+<tr>
 <td>Parent&nbsp;commit{% if commit.parents|dlength > 1%}s{% endif %}</td>
 <td>
 {% for parent in commit.parents %}

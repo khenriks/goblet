@@ -347,10 +347,13 @@ See the LICENSE file for licensing details
     float: right;
     width: 50%;
 }
-.goblet .parents tr :first-child {
+.goblet .parents tr td:first-child {
     width: 7em;
     vertical-align: top;
     padding-right: 0.5em;
+}
+.goblet .parents tr a {
+    padding-right: 0.35em;
 }
 .goblet .parents tr {
     overflow: hidden;
