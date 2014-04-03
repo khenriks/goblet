@@ -87,7 +87,6 @@ class Repository(pygit2.Repository):
     def tags(self):
         return sorted([x[10:] for x in self.listall_references() if x.startswith('refs/tags/')])
 
-    @memoize
     def get_reverse_refs(self):
         ret = defaultdict(list)
         for ref in self.listall_references():
