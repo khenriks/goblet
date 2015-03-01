@@ -68,7 +68,7 @@ def longmsg(message):
     short, long = message.split('\n', 1)
     if len(short) > 80:
         long = message
-    long = re.sub(r'^[-a-z]+(-[a-z]+)*: .+\n', '', long, flags=re.MULTILINE|re.I).strip()
+    long = re.sub(r'^[a-z]+(-[a-z]+)*: .+\n', '', long, flags=re.M).strip()
     if not long:
         return ""
     return Markup('<pre class="invisible">%s</pre>') % escape(long)
