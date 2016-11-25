@@ -113,7 +113,7 @@ def highlight(data, search):
 
 @filter
 def dlength(diff):
-    return len(list(diff))
+    return len(diff)
 
 def register_filters(app):
     app.jinja_env.filters.update(filters)

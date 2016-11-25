@@ -375,7 +375,6 @@ class CommitView(RefView,TreeView):
             diff = ref.tree.diff_to_tree(swap=True)
         else:
             diff = ref.parents[0].tree.diff_to_tree(ref.tree)
-        diff = list(diff)
         for file in diff:
             s = stat[file.new_file_path] = {'-': file.deletions,
                                             '+': file.additions}
