@@ -107,7 +107,7 @@ def code(repo, ref, path, entry, lexer, data=None, blame=False):
         data = decode(data or repo[entry.oid].data)
     except:
         data = '(Binary data)'
-    formatter = pygments.formatters.html.HtmlFormatter(linenos='inline', linenospecial=10, encoding='utf-8', anchorlinenos=True, lineanchors='l')
+    formatter = pygments.formatters.HtmlFormatter(linenos='inline', linenospecial=10, encoding='utf-8', anchorlinenos=True, lineanchors='l')
     html = Markup(pygments.highlight(data, lexer, formatter).decode('utf-8'))
     if blame:
         blame = repo.blame(ref, path)
