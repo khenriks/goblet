@@ -27,6 +27,7 @@ class Defaults:
     USE_X_ACCEL_REDIRECT = False
     ADMINS         = []
     SENDER         = 'webmaster@localhost'
+    SMTP_HOST      = '127.0.0.1'
     CLONE_URLS_BASE = {}
     DEBUG          = is_true_str(os.getenv('GOBLET_DEBUG'))
     THEME          = 'default'
@@ -107,7 +108,7 @@ if not app.debug and app.config['ADMINS']:
             return ("%s\n\nGET variables:\n%s\n\nPOST variables:\n%s\n\nCookies:\n%s\n\n" +
                     "HTTP Headers:\n%s\n\nEnvironment:\n%s") % (msg, get, post, cookies, hdr, env)
 
-    mail_handler = SMTPHandler('127.0.0.1', app.config['SENDER'], app.config['ADMINS'], "Goblet error")
+    mail_handler = SMTPHandler(app.config['SMTP_HOST'], app.config['SENDER'], app.config['ADMINS'], "Goblet error")
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
 if app.debug:
