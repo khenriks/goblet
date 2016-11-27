@@ -73,7 +73,10 @@ class Repository(pygit2.Repository):
             return self.config['goblet.owner']
         except KeyError:
             uid = os.stat(self.path).st_uid
-            pwn = pwd.getpwuid(uid)
+            try:
+                pwn = pwd.getpwuid(uid)
+            except KeyError:
+                return 'unknown'
             if pwn.pw_gecos:
                 if ',' in pwn.pw_gecos:
                     return pwn.pw_gecos[:pwn.pw_gecos.find(',')]
