@@ -22,7 +22,7 @@ def is_true_str(str_):
 class Defaults:
     REPO_ROOT      = git_checkout and os.path.dirname(git_checkout) or os.getcwd()
     MAX_SEARCH_DEPTH = 2
-    CACHE_ROOT     = '/tmp/goblet-snapshots'
+    CACHE_ROOT     = '/tmp/goblet-cache'
     USE_X_SENDFILE = False
     USE_X_ACCEL_REDIRECT = False
     ADMINS         = []

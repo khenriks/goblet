@@ -19,12 +19,6 @@ class Repository(pygit2.Repository):
             super(Repository, self).__init__(path)
         else:
             super(Repository, self).__init__(path + '.git')
-        self.gpath = os.path.join(self.path, 'goblet')
-        self.cpath = os.path.join(self.gpath, 'cache')
-        if not os.path.exists(self.gpath):
-            os.mkdir(self.gpath)
-        if not os.path.exists(self.cpath):
-            os.mkdir(self.cpath)
 
     @memoize
     def get_description(self):

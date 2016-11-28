@@ -344,7 +344,7 @@ class SnapshotView(RefView):
         format, compressor, ext = snapshot_formats.get(format, (None, None))
         if not format:
             raise NotFound("No such snapshot format")
-        cache_dir = current_app.config['CACHE_ROOT']
+        cache_dir = os.path.join(current_app.config['CACHE_ROOT'], 'snapshot')
         if not os.path.exists(cache_dir):
             os.makedirs(cache_dir)
 

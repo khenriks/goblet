@@ -6,7 +6,7 @@ from goblet.views import PathView
 from goblet.filters import shortmsg
 from jinja2 import escape
 import json
-from flask import send_file
+from flask import current_app, send_file
 import os
 
 class TreeChangedView(PathView):
@@ -19,7 +19,10 @@ class TreeChangedView(PathView):
             ref = repo.lookup_reference('refs/heads/%s' % ref).target.hex
         if hasattr(repo[ref], 'target'):
             ref = repo[repo[ref].target].hex
-        cfile = os.path.join(repo.cpath, 'dirlog_%s_%s.json' % (ref, path.replace('/', '_')))
+        cache_dir = os.path.join(current_app.config['CACHE_ROOT'], 'dirlog')
+        if not os.path.exists(cache_dir):
+            os.makedirs(cache_dir)
+        cfile = os.path.join(cache_dir, 'dirlog_%s_%s.json' % (ref, path.replace('/', '_')))
         if not os.path.exists(cfile):
             tree = repo[ref].tree
             for elt in path.split('/'):
